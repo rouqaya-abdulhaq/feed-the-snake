@@ -35,7 +35,27 @@ header{
    transform: rotate(90deg);
 }
 .controls{
-	height: 100px;
+	height: 50px;
 	width: 100px;
 	background-color: crimson;
+}
+#up{
+  position: relative;
+  top:52vh;
+  left:40vw;
+}
+#left{
+  position: relative;
+  top:55vh;
+  left:30vw;
+}
+#down{
+  position: relative;
+  top:58vh;
+  left:40vw;
+}
+#right{
+  position: relative;
+  top:40vh;
+  left:50vw;
 }
