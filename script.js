@@ -7,14 +7,20 @@ let buttonRight = document.querySelector("#right");
 let controls = document.querySelectorAll(".controls");
 let positionX = 0 ;
 let positionY = 0;
+const getWidth =(element)=>{
 
-const moveLeft =()=>{
-	positionX-=10;
-	snake.style.left = positionX + "px"; 
+
 }
-const moveRight =()=> { 
+const moveLeft =()=>{
+	if(positionX>0){
+	positionX-=10;
+	snake.style.left = positionX + "px";} 
+}
+const moveRight =()=> {
+    if(positionX<1000){ 
+    	alert(positionX);
 	positionX += 10 ;
-	snake.style.left = positionX +"px";
+	snake.style.left = positionX +"px";}
 }
 const moveUp =()=>{
 	positionY -= 10;
@@ -29,6 +35,8 @@ buttonUp.addEventListener("click",moveUp);
 buttonLeft.addEventListener("click",moveLeft);
 buttonDown.addEventListener("click",moveDown);
 buttonRight.addEventListener("click",moveRight);
+
+
 
 
 

@@ -19,9 +19,9 @@ header{
 #play-field{
     background-color: yellow;
     padding: 10px;
-    height: 50vh;
+    height: 330px;
     box-shadow:  5px 0px 10px inset; 
-    position: relative; 
+    position: relative;  
 }
 #snake{
 	height: 2.5vh;
@@ -35,27 +35,26 @@ header{
    transform: rotate(90deg);
 }
 .controls{
+	position: relative;
 	height: 50px;
 	width: 100px;
 	background-color: crimson;
 }
 #up{
-  position: relative;
-  top:52vh;
-  left:40vw;
+ top: 2vh;
+ left: 45vw;
+  
 }
 #left{
-  position: relative;
-  top:55vh;
-  left:30vw;
+  top: 4vh;
+  left: 35vw;
+  
 }
 #down{
-  position: relative;
-  top:58vh;
-  left:40vw;
+  top: 10vh;
+ left: 45vw;
 }
 #right{
-  position: relative;
-  top:40vh;
-  left:50vw;
+  top: -10vh;
+  left: 55vw;
 }
