@@ -2,6 +2,7 @@ html body{
 	padding: 0;
 	margin: 0;
 	background-color: pink;
+	overflow: hidden;
 }
 header{
 	padding: 0;
@@ -21,7 +22,8 @@ header{
     padding: 10px;
     height: 330px;
     box-shadow:  5px 0px 10px inset; 
-    position: relative;  
+    position: relative;
+    overflow: hidden;  
 }
 #snake{
 	height: 2.5vh;
@@ -57,4 +59,9 @@ header{
 #right{
   top: -10vh;
   left: 55vw;
+}
+#food{
+	height: 1vh;
+	width: 1vw;
+	background-color: red;
 }
