@@ -3,6 +3,7 @@ html body{
 	margin: 0;
 	background-color: pink;
 	overflow: hidden;
+	size: 100%;
 }
 header{
 	padding: 0;
@@ -38,8 +39,8 @@ header{
 }
 .controls{
 	position: relative;
-	height: 50px;
-	width: 100px;
+	height: 10vh;
+	width: 10vw;
 	background-color: crimson;
 }
 #up{
@@ -53,15 +54,16 @@ header{
   
 }
 #down{
-  top: 10vh;
+  top: 6vh;
  left: 45vw;
 }
 #right{
-  top: -10vh;
+  top: -15vh;
   left: 55vw;
 }
 #food{
 	height: 1vh;
 	width: 1vw;
 	background-color: red;
+	position: relative;
 }

@@ -1,4 +1,5 @@
 let snake = document.querySelector("#snake");
+let food = document.querySelector("#food");
 let playfield = document.querySelector("#play-field");
 let buttonUp = document.querySelector("#up");
 let buttonLeft = document.querySelector("#left");
@@ -7,13 +8,13 @@ let buttonRight = document.querySelector("#right");
 let controls = document.querySelectorAll(".controls");
 let positionX = 0 ;
 let positionY = 0;
-// const makeFood =()=>{
-//     let food = document.ceateElement("span");
-//     food.setAttribute("id","food");
-//     food.style.left = Math.floor(Math.random()*1000) +"px";
-//     food.style.top = Math.floor(Math.random()*200) +"px";
-//     playfield.appendChild(food);
-// }
+
+const positionFood =()=>{
+    foodPosX = Math.random()*playfield.offsetWidth;
+    foodPosY = Math.random()*playfield.offsetHeight;
+    food.style.left = foodPosX + "px";
+    food.style.top = foodPosY + "px";
+}
 const moveLeft =()=>{
 	if(positionX>0){
 	positionX-=10;
@@ -34,11 +35,13 @@ const moveDown = ()=>{
 	positionY += 10;
 	snake.style.top = positionY + "px";}
 }
-// makeFood();
+
+positionFood();
 buttonUp.addEventListener("click",moveUp);
 buttonLeft.addEventListener("click",moveLeft);
 buttonDown.addEventListener("click",moveDown);
 buttonRight.addEventListener("click",moveRight);
+
 
 
 
