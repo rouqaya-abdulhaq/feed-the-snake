@@ -8,6 +8,8 @@ let buttonRight = document.querySelector("#right");
 let controls = document.querySelectorAll(".controls");
 let positionX = 0 ;
 let positionY = 0;
+let operators = ["+","-","*"];
+
 
 const positionFood =()=>{
     foodPosX = Math.random()*playfield.offsetWidth;
@@ -34,6 +36,13 @@ const moveDown = ()=>{
 	if(positionY<playfield.offsetHeight){
 	positionY += 1;
 	snake.style.top = positionY + "em";}
+}
+const randomProplem =()=>{
+	let num1 = Math.floor(Math.random()*256);
+    let num2 = Math.floor(Math.random()*256);
+    let operator = operators[Math.floor(Math.random()*operators.length)];
+    let proplem = num1+operator+num2;
+    return proplem; 
 }
 
 positionFood();
