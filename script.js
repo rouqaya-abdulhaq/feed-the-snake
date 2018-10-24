@@ -17,23 +17,23 @@ const positionFood =()=>{
 }
 const moveLeft =()=>{
 	if(positionX>0){
-	positionX-=10;
-	snake.style.left = positionX + "px";} 
+	positionX-=1;
+	snake.style.left = positionX + "em";} 
 }
 const moveRight =()=> {
     if(positionX<playfield.offsetWidth){ 
-	positionX += 10 ;
-	snake.style.left = positionX +"px";}
+	positionX += 1 ;
+	snake.style.left = positionX +"em";}
 }
 const moveUp =()=>{
 	if(positionY>0){
-	positionY -= 10;
-	snake.style.top = positionY + "px";} 
+	positionY -= 1;
+	snake.style.top = positionY + "em";} 
 }
 const moveDown = ()=>{
 	if(positionY<playfield.offsetHeight){
-	positionY += 10;
-	snake.style.top = positionY + "px";}
+	positionY += 1;
+	snake.style.top = positionY + "em";}
 }
 
 positionFood();
