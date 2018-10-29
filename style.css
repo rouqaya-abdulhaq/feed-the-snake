@@ -21,10 +21,11 @@ header{
 #play-field{
     background-color: yellow;
     padding: 10px;
-    height: 330px;
+    height: 50vh;
     box-shadow:  5px 0px 10px inset; 
     position: relative;
-    overflow: hidden;  
+    overflow: hidden;
+    margin: 0;  
 }
 #snake{
 	height: 2.5vh;
@@ -42,6 +43,7 @@ header{
 	height: 10vh;
 	width: 10vw;
 	background-color: crimson;
+	display: block;
 }
 #up{
  top: 2vh;
@@ -66,4 +68,20 @@ header{
 	width: 1vw;
 	background-color: red;
 	position: relative;
+}
+#game-play{
+	background-color: white;
+	position: relative;
+	height: 40vh;
+}
+#question{
+	font-size: 2em;
+	position: absolute;
+	top: 0vh;
+	left: 80vw;
+}
+#answer{
+	position: absolute;
+	top:12vh;
+	left: 80vw;
 }
