@@ -68,12 +68,15 @@ const validateAnswer =(event)=>{
 }
 //this method should remove an existing question and input box
 //in case of correct answer or the user pressed the controls again
-const removeQuestion =(proplem,input)=>{
-    gamePlay.removeChild(proplem);
-    gamePlay.removeChild(input);
+const removeQuestion = (proplem,input)=>{
+    if (gamePlay.contains(proplem) && gamePlay.contains(input)){
+    	gamePlay.removeChild(proplem);
+    	gamePlay.removeChild(input);
+    }
 }
 // creates the question and the input box when any of the controls is pressed
-const startQuestion =(event)=>{
+const startQuestion =()=>{
+	removeQuestion(proplem,input);
 	proplem = question();
 	input = createAnswerInput();
 	gamePlay.appendChild(proplem);
