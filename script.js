@@ -39,25 +39,6 @@ const validate =(question)=>{
 			return eval(question) == input.value;
 		}
 
-const play = (event)=>{
-	if(event.keyCode===13){
-		if(input.value.length>0 &&!isNaN(input.value)){
-			if(validate(proplem.innerText,event)===true){
-        alert("worked");
-	}
-		}
-	}
-}
-
-//checks if the user did everything correctly and assigns the user's answer to the input value
-// const getAnswer =(callback)=>{
-// 	if(event.keyCode===13){
-// 		if(input.value.length>0 &&!isNaN(input.value)){
-// 			// inputValue= input.value;
-// 			callback();
-// 		}}
-// }
-
 
 const pressLeft =()=>{
     startQuestion();
@@ -75,6 +56,7 @@ const pressDown=()=>{
 	startQuestion();
 	direction = "down";
 }
+
 
 const moveLeft =()=>{
 	if(positionX>0){
@@ -99,7 +81,15 @@ const moveDown = ()=>{
 }
 
 
-
+const play = (event)=>{
+	if(event.keyCode===13){
+		if(input.value.length>0 &&!isNaN(input.value)){
+			if(validate(proplem.innerText,event)===true){
+        alert("worked");
+	}
+		}
+	}
+}
 
 positionFood();
 buttonUp.addEventListener("click",pressUp);
