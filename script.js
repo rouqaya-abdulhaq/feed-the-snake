@@ -12,6 +12,9 @@ let operators = ["+","-","*"];
 let gamePlay = document.querySelector("#game-play");
 let proplem = document.querySelector("#question");
 let input = document.querySelector("#answer");
+let inputValue;
+let direction ="";
+
 
 const positionFood =()=>{
     foodPosX = Math.random()*playfield.offsetWidth;
@@ -27,50 +30,84 @@ const randomProplem =()=>{
     let proplem = num1+operator+num2;
     return proplem; 
 }
-const validate =(proplem)=>{
-	if(event.keyCode===13){
-		if(input.value.length>0 &&!isNaN(input.value)){
-			return(eval(proplem)==input.value);
-		}}
-}
+//displays the question
 const startQuestion =()=>{
 	let question = randomProplem();
 	proplem.innerText = question;
 }
-const getAnswer =()=>{
-	input.addEventListener("keypress",()=>{validate(proplem.innerText);});
+const validate =(question)=>{
+			return eval(question) == input.value;
+		}
+
+const play = (event)=>{
+	if(event.keyCode===13){
+		if(input.value.length>0 &&!isNaN(input.value)){
+			if(validate(proplem.innerText,event)===true){
+        alert("worked");
+	}
+		}
+	}
 }
-const moveLeft =()=>{
+
+//checks if the user did everything correctly and assigns the user's answer to the input value
+// const getAnswer =(callback)=>{
+// 	if(event.keyCode===13){
+// 		if(input.value.length>0 &&!isNaN(input.value)){
+// 			// inputValue= input.value;
+// 			callback();
+// 		}}
+// }
+
+
+const pressLeft =()=>{
+    startQuestion();
+    direction = "left";
+}
+const pressRight=()=>{
 	startQuestion();
+	direction = "right";
+}
+const pressUp=()=>{
+	startQuestion();
+	direction = "up";
+}
+const pressDown=()=>{
+	startQuestion();
+	direction = "down";
+}
+
+const moveLeft =()=>{
 	if(positionX>0){
 	positionX-=1;
 	snake.style.left = positionX + "em";}
 }
+//there is something wrong with the first condition 
 const moveRight =()=> {
-	startQuestion();
 	    if(positionX<playfield.offsetWidth){ 
 		positionX += 1 ;
 		snake.style.left = positionX +"em";}
 }
 const moveUp =()=>{
-	startQuestion();
 	if(positionY>0){
 	positionY -= 1;
 	snake.style.top = positionY + "em";} 
 }
 const moveDown = ()=>{
-	startQuestion();
 	if(positionY<playfield.offsetHeight){
 	positionY += 1;
 	snake.style.top = positionY + "em";}
 }
 
 
+
+
 positionFood();
-buttonUp.addEventListener("click",moveUp);
-buttonLeft.addEventListener("click",moveLeft);
-buttonDown.addEventListener("click",moveDown);
-buttonRight.addEventListener("click",moveRight);
+buttonUp.addEventListener("click",pressUp);
+buttonLeft.addEventListener("click",pressLeft);
+buttonDown.addEventListener("click",pressDown);
+buttonRight.addEventListener("click",pressRight);
+input.addEventListener("keypress",play);
+
 
 
 
