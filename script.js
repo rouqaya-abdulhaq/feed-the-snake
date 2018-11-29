@@ -102,6 +102,8 @@ const play = (event)=>{
         	moveRight();
         	break;
         }
+        proplem.innerText= "press any control";
+        input.value ="";
 	}
 		}
 	}
