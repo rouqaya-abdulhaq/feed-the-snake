@@ -85,7 +85,23 @@ const play = (event)=>{
 	if(event.keyCode===13){
 		if(input.value.length>0 &&!isNaN(input.value)){
 			if(validate(proplem.innerText,event)===true){
-        alert("worked");
+        switch (direction){
+        	case "up":
+        	moveUp();
+        	break;
+
+        	case "left":
+        	moveLeft();
+        	break;
+
+        	case "down":
+        	moveDown();
+        	break;
+
+        	case "right":
+        	moveRight();
+        	break;
+        }
 	}
 		}
 	}
