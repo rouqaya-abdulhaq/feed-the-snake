@@ -12,7 +12,6 @@ let operators = ["+","-","*"];
 let gamePlay = document.querySelector("#game-play");
 let proplem = document.querySelector("#question");
 let input = document.querySelector("#answer");
-let inputValue;
 let direction ="";
 
 
@@ -35,11 +34,12 @@ const startQuestion =()=>{
 	let question = randomProplem();
 	proplem.innerText = question;
 }
+//compares the user's answer to the correct answer and returns a boolean
 const validate =(question)=>{
 			return eval(question) == input.value;
 		}
 
-
+//to manage the controls and update the direction
 const pressLeft =()=>{
     startQuestion();
     direction = "left";
@@ -57,13 +57,12 @@ const pressDown=()=>{
 	direction = "down";
 }
 
-
+//movment functions
 const moveLeft =()=>{
 	if(positionX>0){
 	positionX-=1;
 	snake.style.left = positionX + "em";}
 }
-//there is something wrong with the first condition 
 const moveRight =()=> {
 	    if(positionX<playfield.offsetWidth){ 
 		positionX += 1 ;
