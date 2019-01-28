@@ -1,63 +1,45 @@
 let snake = document.querySelector("#snake");
 let food = document.querySelector("#food");
 let playfield = document.querySelector("#play-field");
-let buttonUp = document.querySelector("#up");
-let buttonLeft = document.querySelector("#left");
-let buttonDown = document.querySelector("#down");
-let buttonRight = document.querySelector("#right");
-let controls = document.querySelectorAll(".controls");
+let startButton = document.querySelector("#start");
 let positionX = 0 ;
 let positionY = 0;
 let operators = ["+","-","*"];
 let gamePlay = document.querySelector("#game-play");
 let proplem = document.querySelector("#question");
-let input = document.querySelector("#answer");
-let direction ="";
+
+
 
 
 const positionFood =()=>{
-    foodPosX = Math.random()*playfield.offsetWidth;
-    foodPosY = Math.random()*playfield.offsetHeight;
+    foodPosX = Math.floor(Math.random()*playfield.offsetWidth);
+    foodPosY = Math.floor(Math.random()*playfield.offsetHeight);
     food.style.left = foodPosX + "px";
     food.style.top = foodPosY + "px";
 }
 //creates a random mathmatical proplem _[+,-,*] only_. 
 const randomProplem =()=>{
-	let num1 = Math.floor(Math.random()*256);
-    let num2 = Math.floor(Math.random()*256);
+	let num1 = Math.floor(Math.random()*10);
+    let num2 = Math.floor(Math.random()*10);
     let operator = operators[Math.floor(Math.random()*operators.length)];
     let proplem = num1+operator+num2;
     return proplem; 
 }
+//you need to update this variable once the correct food is reached 
+let question = randomProplem();
+
 //displays the question
-const startQuestion =()=>{
-	let question = randomProplem();
+const startQuestion =(question)=>{
 	proplem.innerText = question;
 }
-//compares the user's answer to the correct answer and returns a boolean
+//takes a question as a pramater in string format and returns the correct answer
+//designed to go into the food
 const validate =(question)=>{
-			return eval(question) == input.value;
+			return eval(question);
 		}
 
-//to manage the controls and update the direction
-const pressLeft =()=>{
-    startQuestion();
-    direction = "left";
-}
-const pressRight=()=>{
-	startQuestion();
-	direction = "right";
-}
-const pressUp=()=>{
-	startQuestion();
-	direction = "up";
-}
-const pressDown=()=>{
-	startQuestion();
-	direction = "down";
-}
 
-//movment functions
+//movment functions are working properly
 const moveLeft =()=>{
 	if(positionX>0){
 	positionX-=1;
@@ -79,41 +61,35 @@ const moveDown = ()=>{
 	snake.style.top = positionY + "em";}
 }
 
-
+//should respond to the event of the controls keydown
 const play = (event)=>{
-	if(event.keyCode===13){
-		if(input.value.length>0 &&!isNaN(input.value)){
-			if(validate(proplem.innerText,event)===true){
-        switch (direction){
-        	case "up":
-        	moveUp();
+        let keyCode = event.which;
+        switch (keyCode){
+        	case 39:
+        	moveRight();
         	break;
 
-        	case "left":
+        	case 37:
         	moveLeft();
         	break;
 
-        	case "down":
+        	case 38:
+        	moveUp();
+        	break;
+
+        	case 40:
         	moveDown();
         	break;
-
-        	case "right":
-        	moveRight();
-        	break;
         }
-        proplem.innerText= "press any control";
-        input.value ="";
 	}
-		}
-	}
+const evehand =(event)=>{
+    alert(event.which);
 }
-
 positionFood();
-buttonUp.addEventListener("click",pressUp);
-buttonLeft.addEventListener("click",pressLeft);
-buttonDown.addEventListener("click",pressDown);
-buttonRight.addEventListener("click",pressRight);
-input.addEventListener("keypress",play);
+startButton.addEventListener("click",()=>{startQuestion(question);});
+//the event has a wierd behavior sometime it works and often refreshes the page
+//the event is not responding
+document.body.addEventListener("keydown",evehand);
 
 
 

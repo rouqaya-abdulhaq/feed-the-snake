@@ -45,24 +45,12 @@ header{
 	background-color: crimson;
 	display: block;
 }
-#up{
+#start{
  top: 2vh;
  left: 45vw;
   
 }
-#left{
-  top: 4vh;
-  left: 35vw;
-  
-}
-#down{
-  top: 6vh;
- left: 45vw;
-}
-#right{
-  top: -15vh;
-  left: 55vw;
-}
+
 #food{
 	height: 1vh;
 	width: 1vw;
