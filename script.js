@@ -1,5 +1,4 @@
 let snake = document.querySelector("#snake");
-let food = document.querySelector("#food");
 let playfield = document.querySelector("#play-field");
 let startButton = document.querySelector("#start");
 let positionX = 0 ;
@@ -8,15 +7,24 @@ let operators = ["+","-","*"];
 let gamePlay = document.querySelector("#game-play");
 let proplem = document.querySelector("#question");
 
+//creates the food and positiones it
+const createFood = (value)=>{
+	let food = document.createElement("div");
+	let textValue = document.createTextNode(value);
+	food.appendChild(textValue);
+	food.classList.add("food");
+	playfield.appendChild(food);
+	positionFood(food);
+}
 
 
-
-const positionFood =()=>{
+const positionFood =(food)=>{
     foodPosX = Math.floor(Math.random()*playfield.offsetWidth);
     foodPosY = Math.floor(Math.random()*playfield.offsetHeight);
     food.style.left = foodPosX + "px";
     food.style.top = foodPosY + "px";
 }
+
 //creates a random mathmatical proplem _[+,-,*] only_. 
 const randomProplem =()=>{
 	let num1 = Math.floor(Math.random()*10);
@@ -62,8 +70,8 @@ const moveDown = ()=>{
 }
 
 //should respond to the event of the controls keydown
-const play = (event)=>{
-        let keyCode = event.which;
+const move = (event)=>{
+        let keyCode = event.keyCode;
         switch (keyCode){
         	case 39:
         	moveRight();
@@ -82,14 +90,19 @@ const play = (event)=>{
         	break;
         }
 	}
-const evehand =(event)=>{
-    alert(event.which);
+//in theory this is supposed to start the game display the question 
+//and place the food
+//i should remove the event listener after the game is started 
+//and create a new food that has the false value	
+const play = ()=>{
+	startQuestion(question);
+	createFood(validate(question));
+	createFood(20);
 }
-positionFood();
-startButton.addEventListener("click",()=>{startQuestion(question);});
-//the event has a wierd behavior sometime it works and often refreshes the page
-//the event is not responding
-document.body.addEventListener("keydown",evehand);
+
+startButton.addEventListener("click",play);
+//the event is working in chrome but not in IE
+document.body.addEventListener("keydown",move);
 
 
 
