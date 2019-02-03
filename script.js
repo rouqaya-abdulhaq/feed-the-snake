@@ -72,8 +72,11 @@ const moveLeft =()=>{
 	positionX-=1;
 	snake.style.left = positionX + "vw";}
 }
+//by subtracting the width of the snake the 
+//collision with the wall should be at about 97
+//chose 96 for styling purposes
 const moveRight =()=> {
-	    if(positionX<playfield.offsetWidth){ 
+	    if(positionX<96){ 
 		positionX += 1 ;
 		snake.style.left = positionX +"vw";}
 }
@@ -82,8 +85,11 @@ const moveUp =()=>{
 	positionY -= 1;
 	snake.style.top = positionY + "vh";} 
 }
+//by subtracting the width of the snake the 
+//collision with the wall should be at about 48.5
+//may change these numbers in the future
 const moveDown = ()=>{
-	if(positionY<playfield.offsetHeight){
+	if(positionY<48){
 	positionY += 1;
 	snake.style.top = positionY + "vh";}
 }
