@@ -48,7 +48,7 @@ header{
 #start{
  top: 2vh;
  left: 45vw;
-  
+ text-align: center;
 }
 
 .food{
@@ -75,4 +75,19 @@ header{
 	position: absolute;
 	top:12vh;
 	left: 80vw;
+}
+.score{
+	position: absolute;
+	left: 70vw;
+	font-weight: 3px;
+	font-size: 25px;
+	font-family: monospace;
+}
+#score{
+	background-color: red;
+	position: absolute;
+	left: 80vw;
+	font-weight: 3px;
+	font-size: 25px;
+	font-family: monospace;
 }

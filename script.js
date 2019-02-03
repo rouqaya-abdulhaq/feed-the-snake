@@ -6,24 +6,48 @@ let positionY = 0;
 let operators = ["+","-","*"];
 let gamePlay = document.querySelector("#game-play");
 let proplem = document.querySelector("#question");
+let score = document.querySelector("#score");
+let correctFoodPosX;
+let correctFoodPosY;
+let falseFoodPosX;
+let falseFoodPosY;
+let scoreValue = 0;
+
+
 
 //creates the food and positiones it
-const createFood = (value)=>{
+const createFood = (value ,state)=>{
 	let food = document.createElement("div");
 	let textValue = document.createTextNode(value);
 	food.appendChild(textValue);
 	food.classList.add("food");
 	playfield.appendChild(food);
-	positionFood(food);
+	positionFood(food,state);
+}
+const positionFood =(food , state)=>{
+	if(state === "correct"){
+	    correctFoodPosX = Math.floor(Math.random()*100);
+	    correctFoodPosY = Math.floor(Math.random()*50);
+	    food.style.left = correctFoodPosX + "vw";
+	    food.style.top = correctFoodPosY + "vh";}
+    else if (state === "false"){
+    	falseFoodPosX = Math.floor(Math.random()*100);
+	    falseFoodPosY = Math.floor(Math.random()*50);
+	    food.style.left = falseFoodPosX + "vw";
+	    food.style.top = falseFoodPosY + "vh";
+    }
 }
 
-
-const positionFood =(food)=>{
-    foodPosX = Math.floor(Math.random()*playfield.offsetWidth);
-    foodPosY = Math.floor(Math.random()*playfield.offsetHeight);
-    food.style.left = foodPosX + "px";
-    food.style.top = foodPosY + "px";
+//takes a question as a pramater in string format and returns the correct answer
+//designed to go into the food
+const correctValue =(question)=>{
+			return eval(question);
+		}
+//passed for the other food
+const falseValue = ()=>{
+	return Math.floor(Math.random()*100);
 }
+
 
 //creates a random mathmatical proplem _[+,-,*] only_. 
 const randomProplem =()=>{
@@ -40,33 +64,28 @@ let question = randomProplem();
 const startQuestion =(question)=>{
 	proplem.innerText = question;
 }
-//takes a question as a pramater in string format and returns the correct answer
-//designed to go into the food
-const validate =(question)=>{
-			return eval(question);
-		}
 
 
 //movment functions are working properly
 const moveLeft =()=>{
 	if(positionX>0){
 	positionX-=1;
-	snake.style.left = positionX + "em";}
+	snake.style.left = positionX + "vw";}
 }
 const moveRight =()=> {
 	    if(positionX<playfield.offsetWidth){ 
 		positionX += 1 ;
-		snake.style.left = positionX +"em";}
+		snake.style.left = positionX +"vw";}
 }
 const moveUp =()=>{
 	if(positionY>0){
 	positionY -= 1;
-	snake.style.top = positionY + "em";} 
+	snake.style.top = positionY + "vh";} 
 }
 const moveDown = ()=>{
 	if(positionY<playfield.offsetHeight){
 	positionY += 1;
-	snake.style.top = positionY + "em";}
+	snake.style.top = positionY + "vh";}
 }
 
 //should respond to the event of the controls keydown
@@ -89,15 +108,37 @@ const move = (event)=>{
         	moveDown();
         	break;
         }
+        collisionCheck();
 	}
+
+
+//my most urgent proplem
+//it's not what i have in mind i need to find a way to calculate the space of each element and check if they collide at all
+const collisionCheck = ()=>{
+	if(positionX + 2==correctFoodPosX || positionX -2 == correctFoodPosX ){
+		alert("reached");
+	}
+
+}
+	
+const addScore =()=>{
+	score.innerText = scoreValue+=10; 
+}
+const deleteScore =()=>{
+	score.innerText = scoreValue-=10; 
+}
+
+
 //in theory this is supposed to start the game display the question 
 //and place the food
-//i should remove the event listener after the game is started 
-//and create a new food that has the false value	
+//just used the vw and vh to place the food and the snake. i need
+//to calculate where the circle start and end and put a colision condition 
+//i also need to add a scoring system
 const play = ()=>{
 	startQuestion(question);
-	createFood(validate(question));
-	createFood(20);
+	createFood(correctValue(question),"correct");
+	createFood(falseValue(),"false");
+	gamePlay.removeChild(startButton);
 }
 
 startButton.addEventListener("click",play);
