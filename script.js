@@ -1,119 +1,155 @@
 let snake = document.querySelector("#snake");
-let food = document.querySelector("#food");
 let playfield = document.querySelector("#play-field");
-let buttonUp = document.querySelector("#up");
-let buttonLeft = document.querySelector("#left");
-let buttonDown = document.querySelector("#down");
-let buttonRight = document.querySelector("#right");
-let controls = document.querySelectorAll(".controls");
+let startButton = document.querySelector("#start");
 let positionX = 0 ;
 let positionY = 0;
 let operators = ["+","-","*"];
 let gamePlay = document.querySelector("#game-play");
 let proplem = document.querySelector("#question");
-let input = document.querySelector("#answer");
-let direction ="";
+let score = document.querySelector("#score");
+let correctFoodPosX;
+let correctFoodPosY;
+let falseFoodPosX;
+let falseFoodPosY;
+let scoreValue = 0;
 
 
-const positionFood =()=>{
-    foodPosX = Math.random()*playfield.offsetWidth;
-    foodPosY = Math.random()*playfield.offsetHeight;
-    food.style.left = foodPosX + "px";
-    food.style.top = foodPosY + "px";
+
+//creates the food and positiones it
+const createFood = (value ,state)=>{
+	let food = document.createElement("div");
+	let textValue = document.createTextNode(value);
+	food.appendChild(textValue);
+	food.classList.add("food");
+	playfield.appendChild(food);
+	positionFood(food,state);
 }
+const positionFood =(food , state)=>{
+	if(state === "correct"){
+	    correctFoodPosX = Math.floor(Math.random()*100);
+	    correctFoodPosY = Math.floor(Math.random()*50);
+	    food.style.left = correctFoodPosX + "vw";
+	    food.style.top = correctFoodPosY + "vh";}
+    else if (state === "false"){
+    	falseFoodPosX = Math.floor(Math.random()*100);
+	    falseFoodPosY = Math.floor(Math.random()*50);
+	    food.style.left = falseFoodPosX + "vw";
+	    food.style.top = falseFoodPosY + "vh";
+    }
+}
+
+//takes a question as a pramater in string format and returns the correct answer
+//designed to go into the food
+const correctValue =(question)=>{
+			return eval(question);
+		}
+//passed for the other food
+const falseValue = ()=>{
+	return Math.floor(Math.random()*100);
+}
+
+
 //creates a random mathmatical proplem _[+,-,*] only_. 
 const randomProplem =()=>{
-	let num1 = Math.floor(Math.random()*256);
-    let num2 = Math.floor(Math.random()*256);
+	let num1 = Math.floor(Math.random()*10);
+    let num2 = Math.floor(Math.random()*10);
     let operator = operators[Math.floor(Math.random()*operators.length)];
     let proplem = num1+operator+num2;
     return proplem; 
 }
+//you need to update this variable once the correct food is reached 
+let question = randomProplem();
+
 //displays the question
-const startQuestion =()=>{
-	let question = randomProplem();
+const startQuestion =(question)=>{
 	proplem.innerText = question;
 }
-//compares the user's answer to the correct answer and returns a boolean
-const validate =(question)=>{
-			return eval(question) == input.value;
-		}
 
-//to manage the controls and update the direction
-const pressLeft =()=>{
-    startQuestion();
-    direction = "left";
-}
-const pressRight=()=>{
-	startQuestion();
-	direction = "right";
-}
-const pressUp=()=>{
-	startQuestion();
-	direction = "up";
-}
-const pressDown=()=>{
-	startQuestion();
-	direction = "down";
-}
 
-//movment functions
+//movment functions are working properly
 const moveLeft =()=>{
 	if(positionX>0){
 	positionX-=1;
-	snake.style.left = positionX + "em";}
+	snake.style.left = positionX + "vw";}
 }
+//by subtracting the width of the snake the 
+//collision with the wall should be at about 97
+//chose 96 for styling purposes
 const moveRight =()=> {
-	    if(positionX<playfield.offsetWidth){ 
+	    if(positionX<96){ 
 		positionX += 1 ;
-		snake.style.left = positionX +"em";}
+		snake.style.left = positionX +"vw";}
 }
 const moveUp =()=>{
 	if(positionY>0){
 	positionY -= 1;
-	snake.style.top = positionY + "em";} 
+	snake.style.top = positionY + "vh";} 
 }
+//by subtracting the width of the snake the 
+//collision with the wall should be at about 48.5
+//may change these numbers in the future
 const moveDown = ()=>{
-	if(positionY<playfield.offsetHeight){
+	if(positionY<48){
 	positionY += 1;
-	snake.style.top = positionY + "em";}
+	snake.style.top = positionY + "vh";}
 }
 
-
-const play = (event)=>{
-	if(event.keyCode===13){
-		if(input.value.length>0 &&!isNaN(input.value)){
-			if(validate(proplem.innerText,event)===true){
-        switch (direction){
-        	case "up":
-        	moveUp();
+//should respond to the event of the controls keydown
+const move = (event)=>{
+        let keyCode = event.keyCode;
+        switch (keyCode){
+        	case 39:
+        	moveRight();
         	break;
 
-        	case "left":
+        	case 37:
         	moveLeft();
         	break;
 
-        	case "down":
+        	case 38:
+        	moveUp();
+        	break;
+
+        	case 40:
         	moveDown();
         	break;
-
-        	case "right":
-        	moveRight();
-        	break;
         }
-        proplem.innerText= "press any control";
-        input.value ="";
+        collisionCheck();
 	}
-		}
+
+
+//my most urgent proplem
+//it's not what i have in mind i need to find a way to calculate the space of each element and check if they collide at all
+const collisionCheck = ()=>{
+	if(positionX + 2==correctFoodPosX || positionX -2 == correctFoodPosX ){
+		alert("reached");
 	}
+
+}
+	
+const addScore =()=>{
+	score.innerText = scoreValue+=10; 
+}
+const deleteScore =()=>{
+	score.innerText = scoreValue-=10; 
 }
 
-positionFood();
-buttonUp.addEventListener("click",pressUp);
-buttonLeft.addEventListener("click",pressLeft);
-buttonDown.addEventListener("click",pressDown);
-buttonRight.addEventListener("click",pressRight);
-input.addEventListener("keypress",play);
+
+//in theory this is supposed to start the game display the question 
+//and place the food
+//just used the vw and vh to place the food and the snake. i need
+//to calculate where the circle start and end and put a colision condition 
+//i also need to add a scoring system
+const play = ()=>{
+	startQuestion(question);
+	createFood(correctValue(question),"correct");
+	createFood(falseValue(),"false");
+	gamePlay.removeChild(startButton);
+}
+
+startButton.addEventListener("click",play);
+//the event is working in chrome but not in IE
+document.body.addEventListener("keydown",move);
 
 
 

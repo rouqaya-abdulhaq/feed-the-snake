@@ -45,29 +45,20 @@ header{
 	background-color: crimson;
 	display: block;
 }
-#up{
+#start{
  top: 2vh;
  left: 45vw;
-  
+ text-align: center;
 }
-#left{
-  top: 4vh;
-  left: 35vw;
-  
-}
-#down{
-  top: 6vh;
- left: 45vw;
-}
-#right{
-  top: -15vh;
-  left: 55vw;
-}
-#food{
-	height: 1vh;
-	width: 1vw;
-	background-color: red;
+
+.food{
+	height: 4vh;
+	width: 2vw;
+	background-color: white;
+	border: 2px dashed red;
 	position: relative;
+	border-radius: 50%;
+	text-align: center;
 }
 #game-play{
 	background-color: white;
@@ -84,4 +75,19 @@ header{
 	position: absolute;
 	top:12vh;
 	left: 80vw;
+}
+.score{
+	position: absolute;
+	left: 70vw;
+	font-weight: 3px;
+	font-size: 25px;
+	font-family: monospace;
+}
+#score{
+	background-color: red;
+	position: absolute;
+	left: 80vw;
+	font-weight: 3px;
+	font-size: 25px;
+	font-family: monospace;
 }
