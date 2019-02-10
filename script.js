@@ -116,13 +116,28 @@ const move = (event)=>{
         }
         collisionCheck();
 	}
-
+//there are still proplems with the collision check but this approach is the best that i've tried so far	
+//3 to add to the width of the snake and 2 to the width of the food
+const colisionX = (foodPosX)=>{
+	if(positionX +3>=foodPosX && positionX <= foodPosX+2){
+		return true;
+	}
+}
+//3 to add to the height of the snake and 4 to the height of the food
+		const colisionY =(foodPosY)=>{
+	if(positionY-3 >=foodPosY && positionY <=foodPosY+4){
+		return true;
+	}
+}
 
 //my most urgent proplem
 //it's not what i have in mind i need to find a way to calculate the space of each element and check if they collide at all
 const collisionCheck = ()=>{
-	if(positionX + 2==correctFoodPosX || positionX -2 == correctFoodPosX ){
-		alert("reached");
+	if (colisionX(correctFoodPosX)&&colisionY(correctFoodPosY)){
+		alert("reached correct");
+	}
+	if(colisionX(falseFoodPosX)&&colisionY(falseFoodPosY)){
+		alert("reached false");
 	}
 
 }

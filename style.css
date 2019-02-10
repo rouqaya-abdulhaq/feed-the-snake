@@ -28,7 +28,7 @@ header{
     margin: 0;  
 }
 #snake{
-	height: 2.5vh;
+	height: 3vh;
 	width: 3vw;
 	background-color: crimson;
 	position: relative;
