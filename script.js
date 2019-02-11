@@ -29,13 +29,22 @@ const positionFood =(food , state)=>{
 	    correctFoodPosX = Math.floor(Math.random()*100);
 	    correctFoodPosY = Math.floor(Math.random()*50);
 	    food.style.left = correctFoodPosX + "vw";
-	    food.style.top = correctFoodPosY + "vh";}
+		food.style.top = correctFoodPosY + "vh";
+		food.setAttribute("id","correct");}
     else if (state === "false"){
     	falseFoodPosX = Math.floor(Math.random()*100);
 	    falseFoodPosY = Math.floor(Math.random()*50);
 	    food.style.left = falseFoodPosX + "vw";
-	    food.style.top = falseFoodPosY + "vh";
+		food.style.top = falseFoodPosY + "vh";
+		food.setAttribute("id","false");
     }
+}
+const removeFood = ()=>{
+	let correctFood = document.querySelector("#correct");
+	let falseFood = document.querySelector("#false");
+	playfield.removeChild(correctFood);
+	playfield.removeChild(falseFood);
+	askAndAnswers();
 }
 
 //takes a question as a pramater in string format and returns the correct answer
@@ -60,7 +69,7 @@ const randomProplem =()=>{
 //you need to update this variable once the correct food is reached 
 let question = randomProplem();
 
-//displays the question
+
 const startQuestion =(question)=>{
 	proplem.innerText = question;
 }
@@ -94,7 +103,7 @@ const moveDown = ()=>{
 	snake.style.top = positionY + "vh";}
 }
 
-//should respond to the event of the controls keydown
+
 const move = (event)=>{
         let keyCode = event.keyCode;
         switch (keyCode){
@@ -116,28 +125,35 @@ const move = (event)=>{
         }
         collisionCheck();
 	}
-//there are still proplems with the collision check but this approach is the best that i've tried so far	
+
+//the horizontal collision is way off
+//the falseFood top value is not the same as it appears	
 //3 to add to the width of the snake and 2 to the width of the food
 const colisionX = (foodPosX)=>{
-	if(positionX +3>=foodPosX && positionX <= foodPosX+2){
+	if(positionX +3 >= foodPosX && positionX <= foodPosX+2){
 		return true;
 	}
 }
 //3 to add to the height of the snake and 4 to the height of the food
 		const colisionY =(foodPosY)=>{
-	if(positionY-3 >=foodPosY && positionY <=foodPosY+4){
+	if(positionY >=foodPosY && positionY - 4 <= foodPosY ){
 		return true;
 	}
 }
 
 //my most urgent proplem
 //it's not what i have in mind i need to find a way to calculate the space of each element and check if they collide at all
+//i am using the collision to update the question and it's working but i may find a better way in the future 
 const collisionCheck = ()=>{
 	if (colisionX(correctFoodPosX)&&colisionY(correctFoodPosY)){
-		alert("reached correct");
+		addScore();
+		removeFood();
+		question = randomProplem();
 	}
 	if(colisionX(falseFoodPosX)&&colisionY(falseFoodPosY)){
-		alert("reached false");
+		deleteScore();
+		removeFood();
+		question = randomProplem();
 	}
 
 }
@@ -148,7 +164,12 @@ const addScore =()=>{
 const deleteScore =()=>{
 	score.innerText = scoreValue-=10; 
 }
-
+//to display the question and the answers
+const askAndAnswers = ()=>{
+	startQuestion(question);
+	createFood(correctValue(question),"correct");
+	createFood(falseValue(),"false");
+}
 
 //in theory this is supposed to start the game display the question 
 //and place the food
@@ -156,9 +177,7 @@ const deleteScore =()=>{
 //to calculate where the circle start and end and put a colision condition 
 //i also need to add a scoring system
 const play = ()=>{
-	startQuestion(question);
-	createFood(correctValue(question),"correct");
-	createFood(falseValue(),"false");
+	askAndAnswers();
 	gamePlay.removeChild(startButton);
 }
 
