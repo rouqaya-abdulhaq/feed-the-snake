@@ -26,14 +26,14 @@ const createFood = (value ,state)=>{
 }
 const positionFood =(food , state)=>{
 	if(state === "correct"){
-	    correctFoodPosX = Math.floor(Math.random()*100);
-	    correctFoodPosY = Math.floor(Math.random()*50);
+	    correctFoodPosX = Math.floor(Math.random()*95);
+	    correctFoodPosY = Math.floor(Math.random()*55);
 	    food.style.left = correctFoodPosX + "vw";
 		food.style.top = correctFoodPosY + "vh";
 		food.setAttribute("id","correct");}
     else if (state === "false"){
-    	falseFoodPosX = Math.floor(Math.random()*100);
-	    falseFoodPosY = Math.floor(Math.random()*50);
+    	falseFoodPosX = Math.floor(Math.random()*95);
+	    falseFoodPosY = Math.floor(Math.random()*55);
 	    food.style.left = falseFoodPosX + "vw";
 		food.style.top = falseFoodPosY + "vh";
 		food.setAttribute("id","false");
@@ -98,7 +98,7 @@ const moveUp =()=>{
 //collision with the wall should be at about 48.5
 //may change these numbers in the future
 const moveDown = ()=>{
-	if(positionY<48){
+	if(positionY<57){
 	positionY += 1;
 	snake.style.top = positionY + "vh";}
 }

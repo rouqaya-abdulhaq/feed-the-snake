@@ -1,7 +1,6 @@
 html body{
 	padding: 0;
 	margin: 0;
-	background-color: pink;
 	overflow: hidden;
 	size: 100%;
 }
@@ -11,7 +10,7 @@ header{
 	height: 10vh;
 	display: flex;
 	align-items: center;
-	background-color: powderblue;
+	background-color:#F2F2EB;
 }
 #title{
 	margin-left: 2vw;
@@ -19,10 +18,12 @@ header{
 	font-family: monospace;
 }
 #play-field{
-    background-color: yellow;
+    background-color: #038C65;
     padding: 10px;
-    height: 50vh;
-    box-shadow:  5px 0px 10px inset; 
+    height: 60vh;
+    -webkit-box-shadow: inset 0px 1px 30px 1px rgba(0,0,0,0.62);
+-moz-box-shadow: inset 0px 1px 30px 1px rgba(0,0,0,0.62);
+box-shadow: inset 0px 1px 30px 1px rgba(0,0,0,0.62);
     position: relative;
     overflow: hidden;
     margin: 0;  
@@ -30,7 +31,7 @@ header{
 #snake{
 	height: 3vh;
 	width: 3vw;
-	background-color: crimson;
+	background-color: #593128;
 	position: relative;
 	top: 0;
 	left: 0;
@@ -42,40 +43,39 @@ header{
 	position: relative;
 	height: 10vh;
 	width: 10vw;
-	background-color: crimson;
+	background-color: #F2C4C4;
 	display: block;
 }
 #start{
  top: 2vh;
  left: 45vw;
  text-align: center;
+ border-radius: 10px;
+ font-family: monospace;
+ font-size: 30px;
 }
 
 .food{
 	height: 4vh;
 	width: 2vw;
-	background-color: white;
-	border: 2px dashed red;
+	background-color: #F2F2EB;
 	position: relative;
 	border-radius: 50%;
 	text-align: center;
 }
 #game-play{
-	background-color: white;
+	background-color:#96D2D9;
 	position: relative;
-	height: 40vh;
+	height: 30vh;
 }
 #question{
-	font-size: 2em;
+	font-size: 4em;
 	position: absolute;
 	top: 0vh;
 	left: 80vw;
+	font-family: monospace;
 }
-#answer{
-	position: absolute;
-	top:12vh;
-	left: 80vw;
-}
+
 .score{
 	position: absolute;
 	left: 70vw;
@@ -84,7 +84,6 @@ header{
 	font-family: monospace;
 }
 #score{
-	background-color: red;
 	position: absolute;
 	left: 80vw;
 	font-weight: 3px;
