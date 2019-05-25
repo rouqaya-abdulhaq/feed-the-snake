@@ -1,6 +1,15 @@
+//NOTES
+/*1- MOSTLY EVERY THING NEEDS RENAMING
+2- BREAK THE BIG FUNCTIONS TO SMALLER ONES
+3- FIND A BETTER WAY TO POSITION AND CHECK FOR COLLISION. THE CURRENT WAY HAS SOME STRNAGE 
+BEHAVIOUR ESPICIALLY IN Y
+4- RETHINK THIS APPROACH TO THE APPLICATION IN GENERAL AND FIND A BETTER WAY TO HANDLE THE
+GAME*/ 
+
 let snake = document.querySelector("#snake");
 let playfield = document.querySelector("#play-field");
 let startButton = document.querySelector("#start");
+//NAME THIS SNAKE POSITIONS
 let positionX = 0 ;
 let positionY = 0;
 let operators = ["+","-","*"];
@@ -14,7 +23,7 @@ let falseFoodPosY;
 let scoreValue = 0;
 
 
-
+//BREAK TO SMALLER FUNCTIONS
 //creates the food and positiones it
 const createFood = (value ,state)=>{
 	let food = document.createElement("div");
@@ -24,6 +33,9 @@ const createFood = (value ,state)=>{
 	playfield.appendChild(food);
 	positionFood(food,state);
 }
+
+//BREAK TO SMALLER FUNCTIONS
+//THE FOOD IS SOMETIMES POSITIONED INSIDE THE PLAYFIELD DUE TO USING VW AND VH SO FIX THAT
 const positionFood =(food , state)=>{
 	if(state === "correct"){
 	    correctFoodPosX = Math.floor(Math.random()*95);
@@ -33,12 +45,14 @@ const positionFood =(food , state)=>{
 		food.setAttribute("id","correct");}
     else if (state === "false"){
     	falseFoodPosX = Math.floor(Math.random()*95);
-	    falseFoodPosY = Math.floor(Math.random()*55);
+		falseFoodPosY = Math.floor(Math.random()*55);
+		console.log(falseFoodPosY);
 	    food.style.left = falseFoodPosX + "vw";
 		food.style.top = falseFoodPosY + "vh";
 		food.setAttribute("id","false");
     }
 }
+
 const removeFood = ()=>{
 	let correctFood = document.querySelector("#correct");
 	let falseFood = document.querySelector("#false");
@@ -49,10 +63,12 @@ const removeFood = ()=>{
 
 //takes a question as a pramater in string format and returns the correct answer
 //designed to go into the food
+//RENAME 
 const correctValue =(question)=>{
 			return eval(question);
 		}
 //passed for the other food
+//RENAME
 const falseValue = ()=>{
 	return Math.floor(Math.random()*100);
 }
@@ -66,7 +82,8 @@ const randomProplem =()=>{
     let proplem = num1+operator+num2;
     return proplem; 
 }
-//you need to update this variable once the correct food is reached 
+
+//FIND A BETTER WAY TO UPDATE THIS VARIABLE IT'S REPEATING THE FIRST QUESTION TWICE 
 let question = randomProplem();
 
 
@@ -81,6 +98,7 @@ const moveLeft =()=>{
 	positionX-=1;
 	snake.style.left = positionX + "vw";}
 }
+
 //by subtracting the width of the snake the 
 //collision with the wall should be at about 97
 //chose 96 for styling purposes
@@ -126,8 +144,8 @@ const move = (event)=>{
         collisionCheck();
 	}
 
-//the horizontal collision is way off
-//the falseFood top value is not the same as it appears	
+/*THE HORIZONTAL COLLISION IS NOT WORKING 
+STRANGE BEHAVIOUR IN THE HORIZON POSITIONING AND THE COLLISION */
 //3 to add to the width of the snake and 2 to the width of the food
 const colisionX = (foodPosX)=>{
 	if(positionX +3 >= foodPosX && positionX <= foodPosX+2){
@@ -136,14 +154,11 @@ const colisionX = (foodPosX)=>{
 }
 //3 to add to the height of the snake and 4 to the height of the food
 		const colisionY =(foodPosY)=>{
-	if(positionY >=foodPosY && positionY - 4 <= foodPosY ){
+	if(positionY  >= foodPosY && positionY - 4 <= foodPosY ){
 		return true;
 	}
 }
 
-//my most urgent proplem
-//it's not what i have in mind i need to find a way to calculate the space of each element and check if they collide at all
-//i am using the collision to update the question and it's working but i may find a better way in the future 
 const collisionCheck = ()=>{
 	if (colisionX(correctFoodPosX)&&colisionY(correctFoodPosY)){
 		addScore();
@@ -164,6 +179,7 @@ const addScore =()=>{
 const deleteScore =()=>{
 	score.innerText = scoreValue-=10; 
 }
+
 //to display the question and the answers
 const askAndAnswers = ()=>{
 	startQuestion(question);
@@ -171,11 +187,7 @@ const askAndAnswers = ()=>{
 	createFood(falseValue(),"false");
 }
 
-//in theory this is supposed to start the game display the question 
-//and place the food
-//just used the vw and vh to place the food and the snake. i need
-//to calculate where the circle start and end and put a colision condition 
-//i also need to add a scoring system
+
 const play = ()=>{
 	askAndAnswers();
 	gamePlay.removeChild(startButton);
