@@ -66,12 +66,12 @@ header{
 	border-radius: 50%;
 	text-align: center;
 }
-#game-play{
+#btm-display-scrn{
 	background-color:#96D2D9;
 	position: relative;
 	height: 30vh;
 }
-#question{
+#mth-proplem{
 	font-size: 4em;
 	position: absolute;
 	top: 0vh;

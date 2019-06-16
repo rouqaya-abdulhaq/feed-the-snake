@@ -1,56 +1,59 @@
 //NOTES
-/*1- MOSTLY EVERY THING NEEDS RENAMING
-2- BREAK THE BIG FUNCTIONS TO SMALLER ONES
-3- FIND A BETTER WAY TO POSITION AND CHECK FOR COLLISION. THE CURRENT WAY HAS SOME STRNAGE 
+/*
+1- BREAK THE BIG FUNCTIONS TO SMALLER ONES
+2- FIND A BETTER WAY TO POSITION AND CHECK FOR COLLISION. THE CURRENT WAY HAS SOME STRNAGE 
 BEHAVIOUR ESPICIALLY IN Y
-4- RETHINK THIS APPROACH TO THE APPLICATION IN GENERAL AND FIND A BETTER WAY TO HANDLE THE
-GAME*/ 
+3- RETHINK THIS APPROACH TO THE APPLICATION IN GENERAL AND FIND A BETTER WAY TO HANDLE THE
+GAME
+4- rearange the code in an order that would be easier to read*/ 
 
 let snake = document.querySelector("#snake");
 let playfield = document.querySelector("#play-field");
 let startButton = document.querySelector("#start");
-//NAME THIS SNAKE POSITIONS
-let positionX = 0 ;
-let positionY = 0;
+let snakePositionX = 0 ;
+let snakePositionY = 0;
 let operators = ["+","-","*"];
-let gamePlay = document.querySelector("#game-play");
-let proplem = document.querySelector("#question");
-let score = document.querySelector("#score");
+let btmDisplayScrn = document.querySelector("#btm-display-scrn");
+let mthProplemDisplay = document.querySelector("#mth-proplem");
+let scoreDisplay = document.querySelector("#score");
 let correctFoodPosX;
 let correctFoodPosY;
 let falseFoodPosX;
 let falseFoodPosY;
 let scoreValue = 0;
+let mthProplem;
 
 
-//BREAK TO SMALLER FUNCTIONS
-//creates the food and positiones it
-const createFood = (value ,state)=>{
-	let food = document.createElement("div");
-	let textValue = document.createTextNode(value);
-	food.appendChild(textValue);
-	food.classList.add("food");
+
+const generateFood = (value ,state) =>{
+	let food = createFoodElement(value);
 	playfield.appendChild(food);
 	positionFood(food,state);
 }
 
-//BREAK TO SMALLER FUNCTIONS
+const createFoodElement = (value)=>{
+	let food = document.createElement("div");
+	let textValue = document.createTextNode(value);
+	food.appendChild(textValue);
+	food.classList.add("food");
+	return food;
+}
+
 //THE FOOD IS SOMETIMES POSITIONED INSIDE THE PLAYFIELD DUE TO USING VW AND VH SO FIX THAT
-const positionFood =(food , state)=>{
-	if(state === "correct"){
+const positionFood =(food , answer)=>{
+	if(answer === "correct"){
 	    correctFoodPosX = Math.floor(Math.random()*95);
 	    correctFoodPosY = Math.floor(Math.random()*55);
 	    food.style.left = correctFoodPosX + "vw";
 		food.style.top = correctFoodPosY + "vh";
 		food.setAttribute("id","correct");}
-    else if (state === "false"){
-    	falseFoodPosX = Math.floor(Math.random()*95);
+	else if (answer === "false"){
+		falseFoodPosX = Math.floor(Math.random()*95);
 		falseFoodPosY = Math.floor(Math.random()*55);
-		console.log(falseFoodPosY);
 	    food.style.left = falseFoodPosX + "vw";
 		food.style.top = falseFoodPosY + "vh";
 		food.setAttribute("id","false");
-    }
+	}
 }
 
 const removeFood = ()=>{
@@ -58,24 +61,21 @@ const removeFood = ()=>{
 	let falseFood = document.querySelector("#false");
 	playfield.removeChild(correctFood);
 	playfield.removeChild(falseFood);
-	askAndAnswers();
+	displayQustAndFood();
 }
 
-//takes a question as a pramater in string format and returns the correct answer
-//designed to go into the food
-//RENAME 
-const correctValue =(question)=>{
+
+const correctFoodValue =(question)=>{
 			return eval(question);
 		}
-//passed for the other food
-//RENAME
-const falseValue = ()=>{
+
+const falseFoodValue = ()=>{
 	return Math.floor(Math.random()*100);
 }
 
 
 //creates a random mathmatical proplem _[+,-,*] only_. 
-const randomProplem =()=>{
+const generateRandomProplem =()=>{
 	let num1 = Math.floor(Math.random()*10);
     let num2 = Math.floor(Math.random()*10);
     let operator = operators[Math.floor(Math.random()*operators.length)];
@@ -84,45 +84,45 @@ const randomProplem =()=>{
 }
 
 //FIND A BETTER WAY TO UPDATE THIS VARIABLE IT'S REPEATING THE FIRST QUESTION TWICE 
-let question = randomProplem();
+mthProplem = generateRandomProplem();
 
 
-const startQuestion =(question)=>{
-	proplem.innerText = question;
+const displayQuestion =(question)=>{
+	mthProplemDisplay.innerText = question;
 }
 
 
 //movment functions are working properly
 const moveLeft =()=>{
-	if(positionX>0){
-	positionX-=1;
-	snake.style.left = positionX + "vw";}
+	if(snakePositionX>0){
+		snakePositionX-=1;
+	    snake.style.left = snakePositionX + "vw";}
 }
 
 //by subtracting the width of the snake the 
 //collision with the wall should be at about 97
 //chose 96 for styling purposes
 const moveRight =()=> {
-	    if(positionX<96){ 
-		positionX += 1 ;
-		snake.style.left = positionX +"vw";}
+	    if(snakePositionX<96){ 
+			snakePositionX += 1 ;
+		    snake.style.left = snakePositionX +"vw";}
 }
 const moveUp =()=>{
-	if(positionY>0){
-	positionY -= 1;
-	snake.style.top = positionY + "vh";} 
+	if(snakePositionY>0){
+		snakePositionY -= 1;
+	    snake.style.top = snakePositionY + "vh";} 
 }
 //by subtracting the width of the snake the 
 //collision with the wall should be at about 48.5
 //may change these numbers in the future
 const moveDown = ()=>{
-	if(positionY<57){
-	positionY += 1;
-	snake.style.top = positionY + "vh";}
+	if(snakePositionY<57){
+		snakePositionY += 1;
+	    snake.style.top = snakePositionY + "vh";}
 }
 
 
-const move = (event)=>{
+const moveSnake = (event)=>{
         let keyCode = event.keyCode;
         switch (keyCode){
         	case 39:
@@ -148,13 +148,13 @@ const move = (event)=>{
 STRANGE BEHAVIOUR IN THE HORIZON POSITIONING AND THE COLLISION */
 //3 to add to the width of the snake and 2 to the width of the food
 const colisionX = (foodPosX)=>{
-	if(positionX +3 >= foodPosX && positionX <= foodPosX+2){
+	if(snakePositionX +3 >= foodPosX && snakePositionX <= foodPosX+2){
 		return true;
 	}
 }
 //3 to add to the height of the snake and 4 to the height of the food
 		const colisionY =(foodPosY)=>{
-	if(positionY  >= foodPosY && positionY - 4 <= foodPosY ){
+	if(snakePositionY  >= foodPosY && snakePositionY - 4 <= foodPosY ){
 		return true;
 	}
 }
@@ -163,39 +163,39 @@ const collisionCheck = ()=>{
 	if (colisionX(correctFoodPosX)&&colisionY(correctFoodPosY)){
 		addScore();
 		removeFood();
-		question = randomProplem();
+		mthProplem = generateRandomProplem();
 	}
 	if(colisionX(falseFoodPosX)&&colisionY(falseFoodPosY)){
 		deleteScore();
 		removeFood();
-		question = randomProplem();
+		mthProplem = generateRandomProplem();
 	}
 
 }
 	
 const addScore =()=>{
-	score.innerText = scoreValue+=10; 
+	scoreDisplay.innerText = scoreValue+=10; 
 }
 const deleteScore =()=>{
-	score.innerText = scoreValue-=10; 
-}
-
-//to display the question and the answers
-const askAndAnswers = ()=>{
-	startQuestion(question);
-	createFood(correctValue(question),"correct");
-	createFood(falseValue(),"false");
+	scoreDisplay.innerText = scoreValue-=10; 
 }
 
 
-const play = ()=>{
-	askAndAnswers();
-	gamePlay.removeChild(startButton);
+const displayQustAndFood = ()=>{
+	displayQuestion(mthProplem);
+	generateFood(correctFoodValue(mthProplem),"correct");
+	generateFood(falseFoodValue(),"false");
 }
 
-startButton.addEventListener("click",play);
+
+const startGame = ()=>{
+	displayQustAndFood();
+    btmDisplayScrn.removeChild(startButton);
+}
+
+startButton.addEventListener("click",startGame);
 //the event is working in chrome but not in IE
-document.body.addEventListener("keydown",move);
+document.body.addEventListener("keydown",moveSnake);
 
 
 
