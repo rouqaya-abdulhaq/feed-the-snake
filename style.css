@@ -6,11 +6,12 @@ html body{
 	margin: 0;
 	overflow: hidden;
 	size: 100%;
+	display: grid;
+	grid-template-rows: 10vh 60vh 30vh;
 }
 header{
 	padding: 0;
 	margin: 0;
-	height: 10vh;
 	display: flex;
 	align-items: center;
 	background-color:#F2F2EB;
@@ -23,7 +24,6 @@ header{
 #play-field{
     background-color: #038C65;
     padding: 10px;
-    height: 60vh;
     -webkit-box-shadow: inset 0px 1px 30px 1px rgba(0,0,0,0.62);
     -moz-box-shadow: inset 0px 1px 30px 1px rgba(0,0,0,0.62);
     box-shadow: inset 0px 1px 30px 1px rgba(0,0,0,0.62);
@@ -32,8 +32,8 @@ header{
     margin: 0;  
 }
 #snake{
-	height: 3vh;
-	width: 3vw;
+	height: 5%;
+	width: 5%;
 	background-color: #593128;
 	position: relative;
 	top: 0;
@@ -59,17 +59,16 @@ header{
 }
 
 .food{
-	height: 4vh;
-	width: 2vw;
+	height: 6%;
+	width: 2%;
 	background-color: #F2F2EB;
 	position: relative;
-	border-radius: 50%;
+	/* border-radius: 50%; */
 	text-align: center;
 }
 #btm-display-scrn{
 	background-color:#96D2D9;
 	position: relative;
-	height: 30vh;
 }
 #mth-proplem{
 	font-size: 4em;

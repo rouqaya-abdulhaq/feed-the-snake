@@ -39,19 +39,20 @@ const createFoodElement = (value)=>{
 	return food;
 }
 
+
 //THE FOOD IS SOMETIMES POSITIONED INSIDE THE PLAYFIELD DUE TO USING VW AND VH SO FIX THAT
 const positionFood =(food , answer)=>{
 	if(answer === "correct"){
-	    correctFoodPosX = Math.floor(Math.random()*95);
-	    correctFoodPosY = Math.floor(Math.random()*55);
-	    food.style.left = correctFoodPosX + "vw";
-		food.style.top = correctFoodPosY + "vh";
+	    correctFoodPosX = Math.floor(Math.random()*97);
+	    correctFoodPosY = Math.floor(Math.random()*85);
+	    food.style.left = correctFoodPosX + "%";
+		food.style.top = correctFoodPosY + "%";
 		food.setAttribute("id","correct");}
 	else if (answer === "false"){
-		falseFoodPosX = Math.floor(Math.random()*95);
-		falseFoodPosY = Math.floor(Math.random()*55);
-	    food.style.left = falseFoodPosX + "vw";
-		food.style.top = falseFoodPosY + "vh";
+		falseFoodPosX = Math.floor(Math.random()*97);
+		falseFoodPosY = Math.floor(Math.random()*85);
+	    food.style.left = falseFoodPosX + "%";
+		food.style.top = falseFoodPosY + "%";
 		food.setAttribute("id","false");
 	}
 }
@@ -94,31 +95,31 @@ const displayQuestion =(question)=>{
 
 //movment functions are working properly
 const moveLeft =()=>{
-	if(snakePositionX>0){
-		snakePositionX-=1;
-	    snake.style.left = snakePositionX + "vw";}
+	if(snakePositionX > 0){
+		snakePositionX -= 1;
+	    snake.style.left = snakePositionX + "%";}
 }
 
 //by subtracting the width of the snake the 
 //collision with the wall should be at about 97
 //chose 96 for styling purposes
 const moveRight =()=> {
-	    if(snakePositionX<96){ 
+	    if(snakePositionX < 95 ){ 
 			snakePositionX += 1 ;
-		    snake.style.left = snakePositionX +"vw";}
+		    snake.style.left = snakePositionX +"%";}
 }
 const moveUp =()=>{
-	if(snakePositionY>0){
+	if(snakePositionY > 0){
 		snakePositionY -= 1;
-	    snake.style.top = snakePositionY + "vh";} 
+	    snake.style.top = snakePositionY + "%";} 
 }
 //by subtracting the width of the snake the 
 //collision with the wall should be at about 48.5
 //may change these numbers in the future
 const moveDown = ()=>{
-	if(snakePositionY<57){
+	if(snakePositionY < 95 ){
 		snakePositionY += 1;
-	    snake.style.top = snakePositionY + "vh";}
+	    snake.style.top = snakePositionY + "%";}
 }
 
 
@@ -148,13 +149,13 @@ const moveSnake = (event)=>{
 STRANGE BEHAVIOUR IN THE HORIZON POSITIONING AND THE COLLISION */
 //3 to add to the width of the snake and 2 to the width of the food
 const colisionX = (foodPosX)=>{
-	if(snakePositionX +3 >= foodPosX && snakePositionX <= foodPosX+2){
+	if(snakePositionX + 5 >= foodPosX && snakePositionX <= foodPosX + 2){
 		return true;
 	}
 }
 //3 to add to the height of the snake and 4 to the height of the food
 		const colisionY =(foodPosY)=>{
-	if(snakePositionY  >= foodPosY && snakePositionY - 4 <= foodPosY ){
+	if(snakePositionY  >= foodPosY && snakePositionY - 5 <= foodPosY ){
 		return true;
 	}
 }
@@ -174,10 +175,10 @@ const collisionCheck = ()=>{
 }
 	
 const addScore =()=>{
-	scoreDisplay.innerText = scoreValue+=10; 
+	scoreDisplay.innerText = scoreValue += 10; 
 }
 const deleteScore =()=>{
-	scoreDisplay.innerText = scoreValue-=10; 
+	scoreDisplay.innerText = scoreValue -= 10; 
 }
 
 
